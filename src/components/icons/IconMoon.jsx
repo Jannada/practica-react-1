@@ -1,4 +1,4 @@
-export const MoonIcon = ({ fill = "#fff", ...props }) => {
+export const IconMoon = ({ fill = "#fff", ...props }) => {
     return (
         <svg
             {...props}

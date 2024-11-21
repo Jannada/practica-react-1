@@ -1,7 +1,23 @@
-export const TodoCreate = () => {
+import { useState } from "react";
+
+export const TodoCreate = ({ createTodo }) => {
+    const [title, setTitle] = useState("");
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!title.trim()) {
+            return setTitle("");
+        }
+        createTodo(title);
+        setTitle("");
     };
+
+    const handleChange = (e) => {
+        const { value } = e.target;
+        setTitle(value);
+        // console.log(value);
+    };
+
     return (
         <form
             onSubmit={handleSubmit}
@@ -12,6 +28,8 @@ export const TodoCreate = () => {
                 className="w-full text-gray-400 focus:outline-none"
                 type="text"
                 placeholder="create a new todo..."
+                value={title}
+                onChange={handleChange}
             />
         </form>
     );

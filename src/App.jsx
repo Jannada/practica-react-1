@@ -13,14 +13,61 @@ const initialStateTodos = [
     { id: 5, title: "Go to La Sirena", completed: true },
 ];
 function App() {
-    const [todo, setTodo] = useState(initialStateTodos);
+    const [todos, setTodos] = useState(initialStateTodos);
+
+    const createTodo = (title) => {
+        const newTodo = {
+            id: Date.now(), //es solo un id provicional, no se usa en un caso real (no se recomienda)
+            title,
+            completed: false,
+        };
+        setTodos([...todos, newTodo]);
+    };
+
+    const deleteTodo = (id) => {
+        const newTodo = todos.filter((todo) => todo.id != id);
+        setTodos(newTodo);
+    };
+    const clearComplete = () => {
+        const newTodo = todos.filter((todo) => todo.completed === false);
+        setTodos(newTodo);
+    };
+
+    const updateTodo = (id) => {
+        // const newTodo = todos.map((todo) => {
+        //     if (todo.id === id) {
+        //         todo.completed = !todo.completed;
+        //     }
+        //     return todo;
+        // });
+        // setTodos(newTodo);
+
+        //otra forma
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
+    };
+
+    const computedItemsLeft = todos.filter((todo) => !todo.completed).length;
+    console.log(computedItemsLeft);
+
     return (
         <div className="min-h-screen bg-gray-200 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat">
             <Header />
             <main className="px-auto container mx-auto mt-8 px-4">
-                <TodoCreate />
-                <TodoList todos={todo} />
-                <TodoComputed />
+                <TodoCreate createTodo={createTodo} />
+                <TodoList
+                    todos={todos}
+                    updateTodo={updateTodo}
+                    deleteTodo={deleteTodo}
+                />
+                <TodoComputed
+                    todos={todos}
+                    computedItemsLeft={computedItemsLeft}
+                    clearComplete={clearComplete}
+                />
                 <TodoFilter />
             </main>
             <footer className="mt-8 text-center text-gray-400">
