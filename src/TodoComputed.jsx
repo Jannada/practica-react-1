@@ -15,13 +15,13 @@ export const TodoComputed = ({ computedItemsLeft, clearComplete }) => {
         });
     };
     return (
-        <section className="flex justify-between rounded-b-md bg-white px-4 py-4">
-            <span className="text-sm text-gray-400">
+        <section className="flex justify-between rounded-b-md bg-white px-4 py-4 dark:bg-slate-800">
+            <span className="text-sm text-gray-400 dark:text-slate-400">
                 {computedItemsLeft} items left
             </span>
             <button
                 onClick={() => confirmclearComplete()}
-                className="text-sm text-gray-400"
+                className="text-sm text-gray-400 dark:text-slate-400"
             >
                 Clear complete
             </button>

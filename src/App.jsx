@@ -53,13 +53,30 @@ function App() {
     const computedItemsLeft = todos.filter((todo) => !todo.completed).length;
     console.log(computedItemsLeft);
 
+    const [filter, setFilter] = useState("all");
+
+    const changeFilter = (filter) => {
+        setFilter(filter);
+    };
+
+    const filteredTodos = () => {
+        switch (filter) {
+            case "all":
+                return todos;
+            case "active":
+                return todos.filter((todo) => !todo.completed);
+            case "completed":
+                return todos.filter((todo) => todo.completed);
+        }
+    };
+
     return (
-        <div className="min-h-screen bg-gray-200 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat">
+        <div className="min-h-screen bg-gray-200 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat dark:bg-slate-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]">
             <Header />
-            <main className="px-auto container mx-auto mt-8 px-4">
+            <main className="container mx-auto mt-8 px-4">
                 <TodoCreate createTodo={createTodo} />
                 <TodoList
-                    todos={todos}
+                    todos={filteredTodos()}
                     updateTodo={updateTodo}
                     deleteTodo={deleteTodo}
                 />
@@ -68,7 +85,7 @@ function App() {
                     computedItemsLeft={computedItemsLeft}
                     clearComplete={clearComplete}
                 />
-                <TodoFilter />
+                <TodoFilter changeFilter={changeFilter} filter={filter} />
             </main>
             <footer className="mt-8 text-center text-gray-400">
                 Drag an drop to reorder list
