@@ -6,7 +6,7 @@ import { TodoFilter } from "./TodoFilter";
 import { useState } from "react";
 
 const initialStateTodos = [
-    { id: 1, title: "Complete online course", completed: true },
+    { id: 1, title: "Complete online course", completed: false },
     { id: 2, title: "Buy a new book", completed: false },
     { id: 3, title: "10 minutes meditation", completed: true },
     { id: 4, title: "Pick up BM´s package", completed: false },

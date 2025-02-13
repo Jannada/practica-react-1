@@ -1,16 +1,14 @@
-// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-document.documentElement.classList.toggle(
-    "dark",
+//Configuraación para cuando el usuario entra por primera ez a nuestra app, esta tome el theme predeterminado del computador
+if (
     localStorage.theme === "dark" ||
-        (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-);
+    (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+) {
+    document.body.classList.add("dark");
+    localStorage.theme = "dark";
+} else {
+    document.body.classList.remove("dark");
+    localStorage.theme = "light";
+}
 
-// // Whenever the user explicitly chooses light mode
-// localStorage.theme = "light";
-
-// // Whenever the user explicitly chooses dark mode
-// localStorage.theme = "dark";
-
-// // Whenever the user explicitly chooses to respect the OS preference
-// localStorage.removeItem("theme");
+// Nota, debe estar arriba del APP porque debe leerlo primero
