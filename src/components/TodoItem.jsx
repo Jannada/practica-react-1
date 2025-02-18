@@ -1,5 +1,5 @@
 import { IconCross } from "./icons/IconCross";
-import { IconCheck } from "./icons/iconCheck";
+import { IconCheck } from "./icons/IconCheck";
 import Swal from "sweetalert2";
 
 export const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
