@@ -19,7 +19,7 @@ export const Header = () => {
     }, [darkMode]);
 
     return (
-        <header className="container mx-auto px-4 pt-8">
+        <header className="container mx-auto px-4 pt-8 md:max-w-xl">
             <div className="flex flex-row justify-between">
                 <h1 className="text-left text-3xl font-semibold uppercase tracking-[0.3rem] text-white">
                     Todo

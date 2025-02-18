@@ -3,17 +3,22 @@ import { Header } from "./components/Header";
 import { TodoList } from "./components/TodoList";
 import { TodoComputed } from "./TodoComputed";
 import { TodoFilter } from "./TodoFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const initialStateTodos = [
-    { id: 1, title: "Complete online course", completed: false },
-    { id: 2, title: "Buy a new book", completed: false },
-    { id: 3, title: "10 minutes meditation", completed: true },
-    { id: 4, title: "Pick up BM´s package", completed: false },
-    { id: 5, title: "Go to La Sirena", completed: true },
-];
+// const initialStateTodos = [
+//     { id: 1, title: "Complete online course", completed: false },
+//     { id: 2, title: "Buy a new book", completed: false },
+//     { id: 3, title: "10 minutes meditation", completed: true },
+//     { id: 4, title: "Pick up BM´s package", completed: false },
+//     { id: 5, title: "Go to La Sirena", completed: true },
+// ];
+const initialStateTodos = JSON.parse(localStorage.getItem("todos") || []);
 function App() {
     const [todos, setTodos] = useState(initialStateTodos);
+
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);
 
     const createTodo = (title) => {
         const newTodo = {
@@ -51,7 +56,7 @@ function App() {
     };
 
     const computedItemsLeft = todos.filter((todo) => !todo.completed).length;
-    console.log(computedItemsLeft);
+    // console.log(computedItemsLeft);
 
     const [filter, setFilter] = useState("all");
 
@@ -71,9 +76,9 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-200 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat dark:bg-slate-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]">
+        <div className="min-h-screen bg-gray-200 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-slate-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')]">
             <Header />
-            <main className="container mx-auto mt-8 px-4">
+            <main className="container mx-auto mt-8 px-4 md:max-w-xl">
                 <TodoCreate createTodo={createTodo} />
                 <TodoList
                     todos={filteredTodos()}
