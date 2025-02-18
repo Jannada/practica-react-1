@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 //     { id: 4, title: "Pick up BM´s package", completed: false },
 //     { id: 5, title: "Go to La Sirena", completed: true },
 // ];
-const initialStateTodos = JSON.parse(localStorage.getItem("todos") || []);
+const initialStateTodos = JSON.parse(localStorage.getItem("todos")) || [];
 function App() {
     const [todos, setTodos] = useState(initialStateTodos);
 
