@@ -23,7 +23,7 @@ export const TodoComputed = ({ computedItemsLeft, clearComplete }) => {
                 onClick={() => confirmclearComplete()}
                 className="text-sm text-gray-400 dark:text-slate-400"
             >
-                Clear complete
+                Clear completed
             </button>
         </section>
     );
