@@ -7,7 +7,7 @@ export const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
 
     const deleteConfirm = (id) => {
         Swal.fire({
-            title: "Delete to-do",
+            title: "Delete item",
             showDenyButton: true,
             showCancelButton: false,
             confirmButtonText: "Delete",
@@ -15,7 +15,7 @@ export const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 deleteTodo(id);
-                Swal.fire("The To-do has been deleted", "", "success");
+                Swal.fire("The item has been deleted", "", "success");
             }
         });
     };
