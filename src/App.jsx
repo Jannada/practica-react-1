@@ -1,10 +1,10 @@
+import { DragDropContext } from "@hello-pangea/dnd";
 import { TodoCreate } from "./components/TodoCreate";
 import { Header } from "./components/Header";
 import { TodoList } from "./components/TodoList";
 import { TodoComputed } from "./TodoComputed";
 import { TodoFilter } from "./TodoFilter";
 import { useEffect, useState } from "react";
-
 // const initialStateTodos = [
 //     { id: 1, title: "Complete online course", completed: false },
 //     { id: 2, title: "Buy a new book", completed: false },
@@ -80,11 +80,15 @@ function App() {
             <Header />
             <main className="container mx-auto mt-8 px-4 md:max-w-xl">
                 <TodoCreate createTodo={createTodo} />
-                <TodoList
-                    todos={filteredTodos()}
-                    updateTodo={updateTodo}
-                    deleteTodo={deleteTodo}
-                />
+
+                <DragDropContext>
+                    <TodoList
+                        todos={filteredTodos()}
+                        updateTodo={updateTodo}
+                        deleteTodo={deleteTodo}
+                    />
+                </DragDropContext>
+
                 <TodoComputed
                     todos={todos}
                     computedItemsLeft={computedItemsLeft}
