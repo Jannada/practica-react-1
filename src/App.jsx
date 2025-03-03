@@ -13,6 +13,16 @@ import { useEffect, useState } from "react";
 //     { id: 5, title: "Go to La Sirena", completed: true },
 // ];
 const initialStateTodos = JSON.parse(localStorage.getItem("todos")) || [];
+
+// Se crea fuera del APP para que no se renderice todas las veces que el app
+const reorder = (list, startIndex, endIndex) => {
+    const result = [...list];
+    // El list son los todos
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+};
 function App() {
     const [todos, setTodos] = useState(initialStateTodos);
 
@@ -56,7 +66,6 @@ function App() {
     };
 
     const computedItemsLeft = todos.filter((todo) => !todo.completed).length;
-    // console.log(computedItemsLeft);
 
     const [filter, setFilter] = useState("all");
 
@@ -75,13 +84,27 @@ function App() {
         }
     };
 
+    const handleDragEnd = (result) => {
+        const { destination, source } = result;
+        if (!destination) return;
+        if (
+            source.index === destination.index &&
+            source.droppableId === destination.droppableId
+        )
+            return;
+
+        setTodos((prevTasks) =>
+            reorder(prevTasks, source.index, destination.index)
+        );
+    };
+
     return (
         <div className="min-h-screen bg-gray-200 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-slate-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')]">
             <Header />
             <main className="container mx-auto mt-8 px-4 md:max-w-xl">
                 <TodoCreate createTodo={createTodo} />
 
-                <DragDropContext>
+                <DragDropContext onDragEnd={handleDragEnd}>
                     <TodoList
                         todos={filteredTodos()}
                         updateTodo={updateTodo}
